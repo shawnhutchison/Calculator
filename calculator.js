@@ -1,6 +1,8 @@
 let num1 = 0;
-let num2 = 0;
+let num2 = null;
 let operator = '';
+let displayValue = '';
+
 
 function add(num1, num2) {
     return num1 + num2;
@@ -33,4 +35,8 @@ function operate(num1, operator, num2) {
     } 
 
     return result;
+}
+
+function updateDisplayValue(event) {
+
 }
