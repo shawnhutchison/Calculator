@@ -10,7 +10,6 @@ const equalsButton = document.getElementById('equals');
 const screen = document.getElementById('screen');
 
 
-
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -45,16 +44,19 @@ function operate(num1, operator, num2) {
     return result;
 }
 
-
-
-function setDisplayValue(event) {
-    displayValue = displayValue + event.target.innerText;
+function setDisplayValue(argText) {
+    displayValue = displayValue + argText;
     if (!operator) {
         num1 = Number(displayValue);
     } else {
         num2 = Number(displayValue);
     }
     screen.innerText = displayValue;
+
+    if (displayValue.length > 9) {
+        screen.style.fontSize = 80 - (displayValue.length * 2) + 'px';
+    } 
+   
 }
 
 function setOperator(event) {
@@ -64,7 +66,8 @@ function setOperator(event) {
 
 numberButtons.forEach(numberButton => {
     numberButton.addEventListener('click', (event) => {
-            setDisplayValue(event);
+            let buttonValue = event.target.innerText;
+            setDisplayValue(buttonValue);
       });
 });
 
@@ -76,10 +79,9 @@ operatorButtons.forEach(operatorButton => {
 
 equalsButton.addEventListener('click', (event) => {
     if (operator !== null && num2 !== null) {
-        console.log('I fired!');
         num1 = operate(num1, operator, num2);
-        screen.innerText = num1;
-        displayValue = '';
+        displayValue = '';  
+        setDisplayValue(num1);
         operator = null;
         num2 = null;
     }
@@ -90,7 +92,8 @@ clearButton.addEventListener('click', (event) => {
     num2 = null;
     operator = null;
     displayValue = '';
-    screen.innerText = '0';
+    screen.style.fontSize = '80px';
+    setDisplayValue('');
 });
 
 
